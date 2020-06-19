@@ -1,0 +1,605 @@
+<!-- <!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <script type="text/javascript" src="http://mat1.gtimg.com/www/js/tcomment/jquery-1.6.2.min.js"></script> -->
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #lk_scrollBox {
+            width: 600px;
+            height: 700px;
+            /* border: 1px solid #eee; */
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        #lk_scrollbar {
+            width: 560px;
+            height: 10px;
+            background: #fffd54;
+            background: -webkit-linear-gradient(left, #fffd54 0%, #fffd54 9%, #f00 10%, #fffd54 11%, #ff0 50%, #fffd54 55%, #0f0 56%, #fffd54 57%, #fffd54 100%);
+            position: absolute;
+            right: 0;
+            top: 25px;
+            width: 96%;
+        }
+
+        #lk_handle {
+            width: 20px;
+            height: 10px;
+            background: transparent;
+            border: 1.5px solid #98dec6;
+            position: absolute;
+            cursor: pointer;
+            left: 0px;
+            top: -1px;
+        }
+
+        #lk_scrollInner {
+            height: 720px;
+            overflow: hidden;
+            padding-bottom: 20px;
+            overflow-y: hidden;
+            overflow-x: scroll;
+            width: 100%;
+            margin: 47px 20px 10px 75px;
+        }
+
+        #lk_scrollInner #lk_content {
+            width: fit-content;
+        }
+
+        #timeul,
+        #timeul0 {
+            display: flex;
+            margin: 0 141px 0 20px;
+        }
+
+        #timeul li,
+        #timeul0 li {
+            margin: 0 5px;
+        }
+
+        .timeul li {
+            /* margin: 0 5px; */
+            width: 40px;
+            white-space: nowrap;
+            text-align: center;
+            height: 30px;
+        }
+
+
+        ul,
+        li {
+            padding: 0;
+            list-style: none;
+            line-height: 30px;
+        }
+
+        #fixdtit {
+            position: absolute;
+            top: 60px;
+            left: 0px;
+            color: #919ba2;
+            font-weight: bold;
+        }
+
+        #alllists img {
+            width: 30px;
+            height: 30px;
+        }
+
+        #alllists>li:nth-last-child(6) {
+            background: #fffd54;
+            background: -webkit-linear-gradient(left, #fffd54 0%, #fffd54 9%, #f00 10%, #fffd54 11%, #ff0 50%, #fffd54 55%, #0f0 56%, #fffd54 57%, #fffd54 100%);
+        }
+
+        .shou {
+            width: 15px !important;
+            height: 15px !important;
+            vertical-align: sub !important;
+        }
+    </style>
+</head>
+
+<body style="padding: 80px 20px 20px 20px;">
+    <div style="position: absolute;top: 20px;left: 45px;">
+        <div style="font-size: 14px;">书院路国控点（距离园区5公里）</div>
+        <div style="font-weight: bold;font-size: 20px;">空气质量预测</div>
+    </div>
+    <div id='lk_scrollBox'>
+        <ul id="fixdtit" style="width: 51px;text-align: right;"></ul>
+        <div id="lk_scrollInner">
+            <div id="lk_content">
+                <ul id="suoluetime"
+                    style="width: 100%;height: 0; position: relative;top: -20px;display: flex;font-size: 12px;justify-content: space-around;">
+                </ul>
+                <ul id="alllists" style="width: 100%;margin-right: 75px;"></ul>
+                <div id="chartone" style="width: 100%;height: 250px;position: relative;top: 0px;"></div>
+            </div>
+        </div>
+
+        <div id="lk_scrollbar">
+            <ul id="alltimes"
+                style="font-size: 12px; white-space: nowrap; top: -42px;position: absolute;width: 100%;display: flex;justify-content: space-between;">
+            </ul>
+            <div id="lk_handle"></div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        window.onresize = function () { //改变可视区域触发
+            location = location; //页面刷新
+        }
+        // 顶部全局时间
+        var toptimelist = ['20-06-14 05:00:00', '20-06-15 05:00:00', '20-06-16 05:00:00', '20-06-17 05:00:00',
+            '20-06-18 05:00:00', '20-06-19 05:00:00', '20-06-20 05:00:00', '20-06-21 05:00:00',
+            '20-06-22 05:00:00', '20-06-23 05:00:00'
+        ]
+        var alltimescon = ""
+        for (var i = 0; i < toptimelist.length; i++) {
+            alltimescon += "<li>" + toptimelist[i] + "</li>"
+        }
+        document.getElementById("alltimes").innerHTML = alltimescon;
+
+        // 缩略时间
+        document.getElementById("suoluetime").innerHTML = alltimescon;
+
+        var fixdtitlist = ["时间", "天气", "风向", "风速", "温度", "AQI", "PM2.5", "PM10", "SO2", "NO2", "CO", "O3"]
+        var tittest = ""
+        for (var i = 0; i < fixdtitlist.length; i++) {
+            tittest += "<li>" + fixdtitlist[i] + "</li>"
+        }
+        document.getElementById("fixdtit").innerHTML = tittest
+
+        var alllist = [
+            ["10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00",
+                "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00",
+                "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00",
+                "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00", "10:00",
+                "5", "5", "4", "3", "2", "1",
+            ],
+            [
+                "<img src='./img/could.png' />", "<img src='./img/could.png' />", "<img src='./img/sun.png' />",
+                "<img src='./img/moon.png' />", "<img src='./img/moon.png' />",
+                "<img src='./img/moon.png' />", "<img src='./img/could.png' />", "<img src='./img/could.png' />",
+                "<img src='./img/sun.png' />",
+                "<img src='./img/moon.png' />", "<img src='./img/moon.png' />",
+                "<img src='./img/moon.png' />",
+                "<img src='./img/could.png' />", "<img src='./img/could.png' />", "<img src='./img/sun.png' />",
+                "<img src='./img/moon.png' />", "<img src='./img/moon.png' />",
+                "<img src='./img/moon.png' />"
+            ],
+            [
+                "东南风", "东风", "东风", "东南风", "东风", "东南风", "东南风", "东南风", "东南风", "东南风", "东风", "东南风", "东风", "东风", "东南风",
+                "东风", "东风", "东南风", "东风", "东风",
+                "东南风", "东风", "东风", "东南风", "东风", "东风", "东南风", "东风", "东风",
+            ],
+            [
+                "2级", "1级", "2级", "2级", "2级", "2级", "2级", "1级", "2级", "2级", "2级", "2级", "2级", "1级", "2级", "2级",
+                "1级", "1级", "2级", "2级", "2级", "2级", "2级", "2级", "2级", "2级",
+            ],
+            [
+                "21", "33", "18", "26", "18", "18", "23", "19", "18", "21", "33", "18", "26", "18", "18", "23",
+                "19", "18", "21", "33", "18", "26", "18", "18", "23", "19", "18", "21", "33", "18", "26", "18",
+                "18", "23", "19", "18", "21", "33", "18", "26", "18", "18", "23", "19", "18", "21", "33", "18",
+                "26", "18", "18", "23", "19", "18", "21", "33", "18", "26", "18", "18", "23", "19", "18", "21",
+                "33", "18", "26", "18", "18", "23", "19", "18",
+            ],
+            [
+                "1", "2", "3"
+            ],
+            [
+                "34", "35", "46", "55", "46", "45", "56", "55", "56", "34", "35", "46", "55", "46", "45", "56",
+                "55", "56", "34", "35", "46", "55", "46", "45", "56", "55", "56", "34", "35", "46", "55", "46",
+                "45", "56", "55", "56", "34", "35", "46", "55", "46", "45", "56", "55", "56", "34", "35", "46",
+                "55", "46", "45", "56", "55", "56",
+            ],
+            [
+                "<img class='shou' src='./img/shou.png' />182", "<img class='shou' src='./img/shou.png' />182",
+                "<img class='shou' src='./img/shou.png' />182", "103", "107",
+                "<img class='shou' src='./img/shou.png' />182", "<img class='shou' src='./img/shou.png' />182",
+                "111", "<img class='shou' src='./img/shou.png' />182", "103", "107", "111",
+                "<img class='shou' src='./img/shou.png' />182",
+                "111", "<img class='shou' src='./img/shou.png' />182", "103",
+                "<img class='shou' src='./img/shou.png' />182",
+                "111", "<img class='shou' src='./img/shou.png' />182", "103",
+                "<img class='shou' src='./img/shou.png' />182",
+                "111", "<img class='shou' src='./img/shou.png' />182", "103",
+                "<img class='shou' src='./img/shou.png' />182",
+                "111", "<img class='shou' src='./img/shou.png' />182", "103",
+                "<img class='shou' src='./img/shou.png' />182",
+                "111", "<img class='shou' src='./img/shou.png' />182", "103",
+            ],
+            [
+                "14", "15", "16", "15", "16", "17", "13", "13", "14", "15", "16", "15", "16", "17", "13", "13",
+                "14", "15", "16", "15", "16", "17", "13", "13", "14", "15", "16", "15", "16", "17", "13", "13",
+                "14", "15", "16", "15", "16", "17", "13", "13",
+            ],
+            [
+                "26", "33", "40", "26", "33", "40", "26", "33", "40", "26", "33", "40", "40", "33", "40", "40",
+                "40", "40", "40", "40", "40", "40", "40", "40", "26", "33", "40", "40", "33", "40",
+            ],
+            [
+                "0.7", "0.8", "0.9", "0.7", "0.7", "0.7", "0.7", "0.7", "0.8", "0.8", "0.9", "0.8", "0.9", "0.9",
+                "0.8", "0.9", "0.8", "0.9",
+            ],
+            [
+                "<img class='shou' src='./img/shou.png' />182", "150", "112", "150", "112", "150", "112", "150",
+                "112", "150", "112", "150", "112", "150", "112", "150", "112", "150", "112", "150", "112", "150",
+                "112",
+            ]
+        ]
+        var content = ""
+        for (var a = 0; a < fixdtitlist.length; a++) {
+            var licont = ""
+            for (var b = 0; b < alllist[a].length; b++) {
+                licont += "<li>" + alllist[a][b] + "</li>"
+            }
+            content +=
+                "<li style='width: 100%;display: block;'><ul style='display:flex;font-size:12px;' class ='timeul'>" +
+                licont + "</ul></li>"
+        }
+        document.getElementById("alllists").innerHTML = content
+
+        var alltimeslists = ['20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+            '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00', '20/06/14 05:00:00',
+        ];
+
+        var option = {
+            grid: {
+                left: '0%',
+                right: '4%',
+                top: '15%',
+                bottom: '10%',
+                containLabel: true
+            },
+            tooltip: {
+                show: true,
+                trigger: 'item'
+            },
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: '#fff',
+                borderColor: 'rgba(0, 0, 200, 0.2)',
+                borderWidth: 1,
+                borderRadius: 0,
+                padding: 10,
+                formatter: function (params) {
+                    if (params.length) {
+                        var conte = echarts.util.map(['PM2.5', 'PM10', 'SO2', 'NO2', "CO2", "O3"], function (
+                            seriesName) {
+                            for (var i = 0; i < params.length; i++) {
+                                var param = params[i];
+                                var style = 'color: ' + param.color;
+                                if (param.seriesName === seriesName) {
+                                    return '<div style="display:flex;justify-content:space-between;line-height:22px;padding-right:10px;"><span style="' +
+                                        style + '">' +
+                                        param.seriesName +
+                                        '</span><span style="color:#000;font-weight: bold;">' + param
+                                        .value + 'μm/m3</span></div>';
+                                }
+                            }
+                        }).join('');
+                        return "<div style='color:#000;font-weight: bold;display:flex;'><div>采集时间</div><div style='padding:0 10px;white-space: pre-wrap;'>" +
+                            params[0].axisValue.substring(0, 9) + "<br>" + params[0].axisValue.substring(9,
+                                18) + "</div></div>" + conte
+                    }
+                }
+            },
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                axisLabel: {
+                    color: 'rgba(0,0,0,0)',
+                    color: "#999"
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        type: 'dashed',
+                        color: "#999"
+                    }
+                },
+                axisTick: {
+                    show: false,
+                },
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        // type: 'dashed',
+                    }
+                },
+                data: alltimeslists
+            }],
+            yAxis: [{
+                type: 'value',
+                name: 'μm/m3',
+                axisLabel: {
+                    formatter: '{value}',
+                    textStyle: {
+                        color: '#999'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        type: 'dashed',
+                        color: '#999'
+                    }
+                },
+                axisTick: {
+                    show: false,
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        type: 'dashed',
+                        color: '#999'
+                    }
+                }
+            }, {
+                type: 'value',
+                name: 'μm/m3',
+                axisLabel: {
+                    formatter: '{value}',
+                    textStyle: {
+                        color: '#999'
+                    }
+                },
+                position: "right",
+                axisLine: {
+                    lineStyle: {
+                        type: 'dashed',
+                        color: '#999'
+                    }
+                },
+                axisTick: {
+                    show: false,
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        type: 'dashed',
+                        color: '#999'
+                    }
+                }
+            }],
+            series: [{
+                    name: 'PM2.5',
+                    type: 'line',
+                    stack: '总量',
+                    symbol: 'circle',
+                    symbolSize: 2,
+                    itemStyle: {
+                        normal: {
+                            color: '#87d9cd',
+                            lineStyle: {
+                                color: "#87d9cd",
+                                width: 2
+                            }
+                        }
+                    },
+                    markPoint: {
+                        itemStyle: {
+                            normal: {
+                                color: 'red'
+                            }
+                        }
+                    },
+                    data: [2, 32, 101, 10, 82, 100, 300, 2, 32, 101, 10, 82, 100, 300, 10, 64, 2, 87, 134, 90,
+                        230, 210, 182, 110, 150, 102, 81, 191, 34, 260, 280, 10, 64, 2, 87, 134, 90, 230,
+                        210, 182, 110, 150, 102, 81, 191, 34, 260, 280
+                    ]
+                },
+                {
+                    name: 'PM10',
+                    type: 'line',
+                    stack: '总量',
+                    symbol: 'circle',
+                    symbolSize: 2,
+
+                    itemStyle: {
+                        normal: {
+                            color: '#5192f8',
+                            lineStyle: {
+                                color: "#5192f8",
+                                width: 2
+                            }
+                        }
+                    },
+                    data: [220, 300, 10, 64, 2, 87, 134, 90, 230, 82, 191, 10, 2, 32, 101, 10, 82, 100, 300, 10,
+                        64, 2, 87, 134, 90, 230, 210, 182, 110, 150, 102, 81, 191, 34, 260, 280, 230, 210,
+                        150, 182, 201, 70, 270, 201, 14, 40, 240, 250
+                    ]
+                },
+                {
+                    name: 'SO2',
+                    type: 'line',
+                    stack: '总量',
+                    symbol: 'circle',
+                    symbolSize: 2,
+                    itemStyle: {
+                        normal: {
+                            color: '#af77f4',
+                            lineStyle: {
+                                color: "#af77f4",
+                                width: 2
+                            }
+                        }
+                    },
+                    data: [150, 2, 32, 101, 10, 82, 100, 300, 10, 64, 2, 87, 134, 90, 230, 210, 182, 110, 150,
+                        102, 81, 191, 34, 260, 280, 310, 150, 12, 201, 300, 10, 64, 2, 87, 134, 90, 230,
+                        232,
+                        201, 154, 190, 180, 10, 150, 182, 201, 54, 190
+                    ]
+                },
+                {
+                    name: 'NO2',
+                    type: 'line',
+                    stack: '总量',
+                    symbol: 'circle',
+                    symbolSize: 2,
+                    itemStyle: {
+                        normal: {
+                            color: '#df767d',
+                            lineStyle: {
+                                color: "#df767d",
+                                width: 2
+                            }
+                        }
+                    },
+                    data: [50, 22, 301, 154, 90, 180, 210, 150, 300, 10, 64, 2, 87, 134, 2, 32, 101, 10, 82,
+                        100, 300, 10, 64, 2, 87, 134, 90, 230, 210, 182, 110, 150, 102, 81, 191, 34, 260,
+                        290, 230, 182, 201, 54, 210, 150, 182, 201, 190
+                    ]
+                },
+                {
+                    name: 'CO2',
+                    type: 'line',
+                    stack: '总量',
+                    symbol: 'circle',
+                    symbolSize: 2,
+                    itemStyle: {
+                        normal: {
+                            color: '#9aa0a6',
+                            lineStyle: {
+                                color: "#9aa0a6",
+                                width: 2
+                            }
+                        }
+                    },
+                    data: [150, 32, 210, 300, 10, 64, 2, 87, 134, 2, 32, 101, 10, 82, 100, 300, 10, 64, 2, 87,
+                        134, 90, 230, 210, 182, 110, 150, 102, 81, 191, 34, 260, 280, 90, 230, 50, 182, 201,
+                        201, 154, 190, 180, 10, 150, 182, 71, 154, 190
+                    ]
+                },
+                {
+                    name: 'O3',
+                    type: 'line',
+                    stack: '总量',
+                    symbol: 'circle',
+                    symbolSize: 2,
+                    itemStyle: {
+                        normal: {
+                            color: '#e49239',
+                            lineStyle: {
+                                color: "#e49239",
+                                width: 2
+                            }
+                        }
+                    },
+                    data: [30, 92, 21, 200, 190, 21, 200, 190, 100, 10, 190, 300, 10, 64, 2, 87, 134, 2, 32,
+                        101, 10, 82, 100, 300, 10, 64, 2, 87, 134, 90, 230, 210, 182, 110, 150, 102, 81,
+                        191, 34, 260, 280, 90, 230, 182, 201, 134, 30, 190
+                    ]
+                }
+            ]
+        };
+        var myChartone = echarts.init(document.getElementById('chartone'));
+        myChartone.setOption(option);
+
+        jQuery(function () {
+            oParent = $('#lk_scrollbar');
+            oDiv1 = $('#lk_handle');
+            oDiv2 = $('#lk_scrollBox');
+            oDiv3 = $('#lk_scrollInner');
+            $end = $('#lk_end');
+
+            oDiv1.width(30);
+            setTimeout(function () {
+                reScrollBox()
+            }, 1000)
+            //
+            reScrollBox = function () {
+                maxW = oDiv3[0].scrollWidth;
+                minW = oDiv2.width();
+                scale = minW / maxW;
+                oDiv1.width(oParent.width() * scale + 30);
+
+            }
+
+            function moveDownSlide(l) {
+                if (l < 0) {
+                    l = 0;
+                } else if (l > oParent.width() - oDiv1.width()) {
+                    l = oParent.width() - oDiv1.width();
+                }
+                oDiv1.css('left', l);
+                var scale = l / (oParent.width() - oDiv1.width());
+                oDiv3.scrollLeft((oDiv3[0].scrollWidth - oDiv2.width()) * scale);
+
+            }
+
+            oDiv3.bind('scroll', function () {
+                var scale = (oDiv3[0].scrollWidth - oDiv2.width()) / (oParent.width() - oDiv1.width());
+                var t = $(this).scrollLeft() / scale;
+                oDiv1.css('left', t)
+
+            });
+            oDiv1[0].onmousedown = function (ev) {
+                ev = ev || window.event;
+                var disX = ev.clientX - oDiv1.position().left;
+
+                document.onmousemove = function (ev) {
+                    ev = ev || window.event;
+                    var l = ev.clientX - disX;
+                    moveDownSlide(l);
+                };
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                };
+                $(document).bind('selectstart', function (ev) {
+                    return false;
+                });
+            };
+            $(window).keydown(function (ev) {
+
+                var sLeft = oDiv3.scrollLeft();
+                var maxW = oDiv3[0].scrollWidth - oDiv3.width();
+
+                switch (ev.keyCode) {
+                    case 37:
+                        funLeft(sLeft - 50 > 0 ? sLeft - 50 : 0);
+                        break;
+                    case 39:
+                        funLeft(sLeft + 50 < maxW ? sLeft + 50 : maxW);
+                        break;
+                }
+
+                function funLeft(sLeft) {
+                    oDiv3.scrollLeft(sLeft)
+                    var t = oDiv3.scrollLeft() * scale;
+                    var maxT = oParent.width() - oDiv1.width();
+                    oDiv1.css('left', (t < maxT ? t : maxT));
+                }
+            })
+        });
+    </script>
+
+
+</body>
+
+</html>
