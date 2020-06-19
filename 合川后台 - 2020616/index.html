@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>合川首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            color: #333;
+            font-size: 14px;
+            font: 14px/1.6 PingFangSC-Light, 'helvetica neue', 'hiragino sans gb', tahoma, 'microsoft yahei ui', 'microsoft yahei', simsun, sans-serif;
+        }
+
+        html {
+            overflow: auto;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        ul,
+        li {
+            list-style-type: none;
+            cursor: auto;
+        }
+
+        img {
+            vertical-align: middle;
+            border: none;
+        }
+
+        a {
+            text-decoration: none;
+            outline: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            outline: none;
+            color: #217af0
+        }
+
+        .clear {
+            clear: both
+        }
+
+        input {
+            border: none;
+        }
+
+        .left_bar {
+            width: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .left_bar img {
+            width: 18px;
+            height: 18px;
+            margin: 20% auto;
+        }
+
+        .uls {
+            color: #8a92a8;
+            font-size: 14px;
+        }
+
+        .uls img {
+            width: 15px;
+            height: 15px;
+            margin: auto 5px 0;
+        }
+
+        .uls li {
+            margin: 13px 0;
+        }
+
+        .choseli {
+            color: #196dff;
+        }
+
+        .choseli::before {
+            content: " ";
+            display: block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #196dff;
+            position: absolute;
+            left: 16px;
+            top: 10px;
+        }
+
+        .right_ul {
+            color: #8a92a8;
+            display: flex;
+            text-align: center;
+        }
+
+        .qiyong,
+        .weiqiy {
+            display: flex;
+            font-size: 12px;
+        }
+
+        .qiyong::before,
+        .weiqiy::before,
+        .right_ul li~li::before {
+            content: " ";
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: #03c9d1;
+            margin: 6px 3px;
+        }
+
+        .right_ul li div:nth-child(2) {
+            color: #2b365a;
+            font-size: 18px;
+        }
+
+        .weiqiy::before {
+            background: #e8eaf2;
+        }
+
+        .right_ul li~li {
+            padding-left: 20px;
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .right_ul li~li::before {
+            width: 1px;
+            height: 24px;
+            background: #eff0f6;
+            position: absolute;
+            left: 0px;
+            top: 5px;
+        }
+
+        .smtit,
+        .smtit0 {
+            color: #8a92a8;
+            font-size: 12px;
+            position: relative;
+            line-height: 32px;
+            margin-right: 13px;
+            padding-left: 10px;
+        }
+
+        .smtit::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 1px;
+            height: 10px;
+            background: #eff0f6;
+            right: -7px;
+            top: 10px;
+        }
+
+        .searbox {
+            background: #eff0f7;
+            width: 32px;
+            border-radius: 3px;
+        }
+
+        .searbox img {
+            width: 18px;
+            height: 18px;
+            margin: 7px;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #8a92a8;
+        }
+
+        input:-moz-placeholder {
+            color: #8a92a8;
+            opacity: 1;
+        }
+
+        input::-moz-placeholder {
+            color: #8a92a8;
+            opacity: 1;
+        }
+
+        input:-ms-input-placeholder {
+            color: #8a92a8;
+        }
+
+        thead td {
+            border-bottom: 1px solid #eee;
+        }
+
+        tr td:last-child {
+            text-align: right;
+        }
+
+        tbody tr {
+            line-height: 36px;
+        }
+
+        .bottnum {
+            position: absolute;
+            bottom: 10px;
+            width: calc(100% - 30px);
+        }
+
+        .bottnum>div {
+            display: flex;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .bottnum img {
+            width: 15px;
+            height: 10px;
+            margin: auto 10px;
+        }
+
+        .bottnum>div>div {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body style="background: #0069ff;display: flex;">
+    <div id="body" class="left_bar">
+        <img style="width: 30px;height: 30px;" src="./img/logo.png" alt="">
+        <div style=" display: flex; flex-direction: column;height: 80%;">
+            <img style="width: 30px;height: 30px;" src="./img/home.png" alt="">
+            <img src="./img/news.png" alt="">
+            <img style="width: 30px;height: 30px;" src="./img/property.png" alt="">
+            <img src="./img/resource.png" alt="">
+            <img src="./img/environment.png" alt="">
+            <img src="./img/emergency.png" alt="">
+            <img src="./img/data.png" alt="">
+            <img src="./img/base.png" alt="">
+            <img src="./img/event.png" alt="">
+        </div>
+        <img style="width: 30px;height: 30px;" src="./img/touxiang.png" alt="">
+    </div>
+    <div
+        style="width: calc(100% - 50px);background: #f5fafd;border-bottom-left-radius: 15px;border-top-left-radius: 15px;display: flex;">
+        <div style="width: 170px;padding: 5px 15px;">
+            <div style="display: flex;justify-content: space-between;">
+                <div style="color: #2b365a;font-size: 16px;">资产管理</div><img style="width: 15px; height: 15px;"
+                    src="./img/9.png" alt="">
+            </div>
+            <div>
+                <ul class="uls">
+                    <li><img src="./img/8.png" alt="">资产列表</li>
+                    <li
+                        style="background: #e6f1fe; color: #196dff;display: flex;justify-content: space-between;padding: 7px 0;">
+                        <div><img src="./img/11.png" alt="">智能设备</div><img
+                            style="width: 15px; height: 10px; margin: auto 7px;" src="./img/1.png" alt="">
+                    </li>
+                    <li>
+                        <ul style="padding-left: 25px;position: relative;">
+                            <li class="choseli">摄像头</li>
+                            <li>环保设备</li>
+                            <li>照明设备</li>
+                        </ul>
+                    </li>
+                    <li><img src="./img/8.png" alt="">分类配置</li>
+                    <li><img src="./img/8.png" alt="">分组配置</li>
+                </ul>
+            </div>
+        </div>
+        <div style="width: calc(100% - 190px); padding: 5px 10px;">
+            <div style="font-size: 20px;color: #2b365a;margin-bottom: 15px;">智能设备</div>
+            <div style="display: flex;justify-content: space-between;">
+                <div style="display: flex;">
+                    <div
+                        style="background: #e6f1fe;width: 40px; height: 40px; border-radius: 50%;margin: auto 10px auto 0;">
+                        <img style="width: 20px; height: 24px;margin: 8px 10px;" src="./img/sxt.png" alt=""></div>
+                    <ul class="right_ul">
+                        <li>
+                            <div>设备总数</div>
+                            <div>1346</div>
+                        </li>
+                        <li>
+                            <div class="qiyong">启用</div>
+                            <div>1346</div>
+                        </li>
+                        <li>
+                            <div class="weiqiy">未启用</div>
+                            <div>1346</div>
+                        </li>
+                    </ul>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: space-around;">
+                    <div style="width: 288px;height: 8px;border-radius: 4px;background: #e8eaf2;position: relative;">
+                        <div
+                            style="width: 30%;background: #03c9d1;height: 8px;border-radius: 4px;position: absolute;left: 0;">
+                        </div>
+                    </div>
+                    <div style="color: #8a92a8;font-size: 12px;text-align: right;">更新于2020-06-09 16：30：23</div>
+                </div>
+            </div>
+            <div style="background: #fff;padding: 15px;color: #8a92a8;position: relative;
+                border-radius: 8px;margin-top: 10px;height: calc(100% - 165px);font-size: 12px;">
+                <div style="display: flex; width: fit-content; border: 1px solid #eee; border-radius: 5px;">
+                    <div class="smtit">产品名称</div>
+                    <input type="text" placeholder="请输入资产编号查询">
+                    <div class="searbox"><img src="./img/search.png" alt=""></div>
+                    <div class="smtit0">节点类型：</div>
+                    <div class="smtit0">查看全部<img style="width: 18px;margin: -3px 10px 0 3px;" src="./img/16.png" alt="">
+                    </div>
+                    <div class="smtit">设备名称</div>
+                    <input type="text" placeholder="请输入资产编号查询">
+                    <div class="searbox"><img src="./img/search.png" alt=""></div>
+                </div>
+                <div style="width: 100%;min-width: fit-content; overflow: hidden; white-space: nowrap;">
+                    <table style="width: 100%;border-collapse:collapse;">
+                        <thead style="color: #2b365a;">
+                            <tr style="line-height: 40px;">
+                                <td><input type="checkbox" name="" id="">产品名称</td>
+                                <td>设备ID</td>
+                                <td>设备名称</td>
+                                <td>节点类型</td>
+                                <td>当前状态</td>
+                                <td>最后上报时间</td>
+                                <td>创建时间</td>
+                                <td>设备分组</td>
+                                <td>启动状态</td>
+                                <td>设备MN</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>AI行车记录仪</td>
+                                <td>11940932616115875120</td>
+                                <td>京B-7Y592</td>
+                                <td>直接设备</td>
+                                <td>离线</td>
+                                <td>2019-08-08 12：22：22</td>
+                                <td>2019-08-08 12：22：22</td>
+                                <td>通州AI</td>
+                                <td>
+                                    <div
+                                        style="width: 36px;height: 18px;border-radius: 19px;background: #03c9d1;position: relative;">
+                                        <div
+                                            style="position: absolute;width: 18px;height: 18px;border-radius: 50%;background: #fff;right: 0;">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>19010ALAA15</td>
+                                <td style="color: #0762f8;font-size: 12px;">处理 | <img style="height: 4px;"
+                                        src="./img/shenlue.png" alt=""></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="" id="">AI行车记录仪</td>
+                                <td>11940932616115875120</td>
+                                <td>京B-7Y592</td>
+                                <td>直接设备</td>
+                                <td>离线</td>
+                                <td>2019-08-08 12：22：22</td>
+                                <td>2019-08-08 12：22：22</td>
+                                <td>通州AI</td>
+                                <td><img style="width: 7px;height: 7px;margin-right: 5px;" src="./img/red-cir.png" />离线
+                                </td>
+                                <td>19010ALAA15</td>
+                                <td style="color: #0762f8;font-size: 12px;">处理 | <img style="height: 4px;"
+                                        src="./img/shenlue.png" alt=""></td>
+                            </tr>
+                            <tr>
+                                <td><img style="height: 12px; margin-right: 5px;" src="./img/17.png" alt="">AI行车记录仪</td>
+                                <td>11940932616115875120</td>
+                                <td>京B-7Y592</td>
+                                <td>直接设备</td>
+                                <td>离线</td>
+                                <td>2019-08-08 12：22：22</td>
+                                <td>2019-08-08 12：22：22</td>
+                                <td>通州AI</td>
+                                <td>
+                                    <div
+                                        style="width: 36px;height: 18px;border-radius: 19px;background: #03c9d1;position: relative;">
+                                        <div
+                                            style="position: absolute;width: 18px;height: 18px;border-radius: 50%;background: #fff;right: 0;">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>19010ALAA15</td>
+                                <td style="color: #03c9d1;">完成</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bottnum">
+                    <div><img src="./img/22.png" alt="">
+                        <div
+                            style="background: #196dff; color: #fff; width: 22px; height: 22px; text-align: center; border-radius: 50%;">
+                            1</div>
+                        <div>2</div>
+                        <div>3</div>...<div>12</div><img src="./img/18.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.onresize = function () { //改变可视区域触发
+        location = location; //页面刷新
+    }
+    window.onload = () => {
+        document.getElementsByTagName("body")[0].style.height = document.body.scrollHeight + "px";
+        document.getElementsByTagName("body")[0].style.width = document.body.scrollWidth + "px";
+        document.getElementById("body").style.height = document.body.scrollHeight + "px";
+    }
+</script>
+
+</html>
