@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>合川侧边栏</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            /* font-family: Microsoft JhengHei; */
+        }
+
+        body {
+            margin: 0;
+            font-family: "microsoft yahei", arial, tahoma, helvetica, sans-serif;
+        }
+
+        .left-too {
+            position: absolute;
+            top: 84px;
+            left: 20px;
+            z-index: 1005;
+            overflow: hidden;
+            border-radius: 3px;
+            background: #fff;
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, .3);
+            -webkit-transition: .3s;
+            transition: .3s;
+        }
+
+        .left-tool {
+            width: 240px;
+            background: #191e4e;
+        }
+
+        #subjectTree {
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            /* width: 182px; */
+            background: #191e4e;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: block;
+            margin-top: -20px;
+            margin-left: -20px;
+            text-align: center;
+        }
+
+        .children-lv1:first-child {
+            margin-top: 0;
+        }
+
+        .classify-children .children-lv1 {
+            margin-top: 6px;
+            width: 96%;
+            display: flex;
+            flex-direction: column;
+            background-color: #1e2a5b;
+        }
+
+        .classify-children {
+            overflow: scroll;
+            height: 360px;
+            margin: 2px 0;
+        }
+
+        .classify-children::-webkit-scrollbar {
+            display: none
+        }
+
+        .lv2-title {
+            position: relative;
+            display: block;
+            padding: 7px 0;
+            color: #fff;
+            line-height: 1pc;
+        }
+
+        .lv2-title>img {
+            width: 15px;
+            vertical-align: middle;
+        }
+
+
+        .classify-children .checkbox {
+            float: left;
+            display: block;
+            margin-top: 1px;
+            width: 14px;
+            height: 14px;
+            background: url('./img/jiaodown.png') no-repeat;
+        }
+
+        .ul-leaf,
+        .visily {
+            display: none;
+            background: #191e4e;
+        }
+
+        .lv1-title,
+        .lv1-title02 {
+            display: block;
+            padding-left: 10px;
+            height: 40px;
+            color: #fff;
+            line-height: 40px;
+            font-size: 14px;
+        }
+
+        .lv2-title:hover {
+            color: #1adac8 !important;
+        }
+
+        .lv1-title02 {
+            background-image: url('./img/xiangshang.png');
+            background-repeat: no-repeat;
+            background-position: 94%;
+            background-size: 11%;
+        }
+
+        .lv1-title {
+            background: url('./img/xiangxia.png') no-repeat;
+            background-position: 94%;
+            background-size: 11%;
+            cursor: pointer;
+        }
+
+        .lv2-text {
+            font-size: 14px;
+        }
+
+        .updownimg {
+            position: absolute;
+            right: 23px;
+            width: 22px;
+            height: 22px;
+        }
+
+        .ischecked,
+        .ischeckedok,
+        .onchecked,
+        .onchecked0 {
+            vertical-align: middle;
+            width: 15px;
+            height: 15px;
+            background: url(./img/danxuan0.png) no-repeat;
+            background-size: 100% 100%;
+            display: inline-block;
+        }
+
+        .ischeckedok {
+            background: url(./img/danxuan.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .onchecked {
+            background: url(./img/fuxuan0.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .onchecked0 {
+            background: url(./img/fuxuan.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #tabul {
+            color: #1adac8;
+            display: flex;
+            white-space: nowrap;
+        }
+
+        #tabul li {
+            width: fit-content;
+            list-style: none;
+            margin: 10px 20px;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid #fff;
+        }
+
+        .selected {
+            background: #1e2a5b;
+            border: 1px solid #1adac8;
+        }
+
+        .selected::after {
+            content: " ";
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: url('./img/gou.png') no-repeat;
+            background-size: 100% 100%;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .but {
+            width: 300px;
+            background: #00cab0;
+            color: #fff;
+            text-align: center;
+            padding: 7px 0;
+            margin: 10px auto;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="background: #eee;">
+        <!-- 头部 tab栏 -->
+        <div style="display: flex;min-width: fit-content;padding: 0 30px;background: #fff;">
+            <div style="line-height: 53px;white-space: nowrap;">选择AI模型</div>
+            <ul id="tabul">
+                <li class="selected">区域入侵识别</li>
+                <li>车辆识别</li>
+                <li>人脸识别</li>
+                <li>体态识别</li>
+                <li>烟雾及明火识别</li>
+            </ul>
+        </div>
+        <div style="padding: 20px 0;">
+            <!-- 列表视频范围 -->
+            <div style="display: flex;width: fit-content; margin: auto;">
+                <!-- 左侧二级树形列表 -->
+                <div class="left-tool">
+                    <div id="content" style="padding-left: 10px;">
+                        <div id="subjectTree" class="ps-container">
+                            <ul id="classefyLists" class="classify-children">
+                                <!-- active 点击时候的样式 -->
+                                <li class="children children-lv1 " id="subject_3">
+                                    <input class="visily" type="checkbox" name="group-1" id="group-1">
+                                    <label for="group-1" id="lv1-title" class="lv1-title">中国煤炭博物馆
+                                        <!-- <img class="updownimg" src="./img/xiangshang.png" alt=""> -->
+                                    </label>
+                                    <ul class="ul-leaf">
+                                        <!-- ischecked li被选中样式 -->
+                                        <li class="children children-lv2 " id="subject_4">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">xxx</span>
+                                            </a>
+                                        </li>
+                                        <li class="children children-lv2 " id="subject_5">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <!-- <input type="checkbox"> -->
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">xxx</span>
+                                            </a>
+                                        </li>
+                                        <li class="children children-lv2 " id="subject_6">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <!-- <input type="checkbox"> -->
+                                                <i class="onchecked"></i>
+                                                <span class="lv2-text">xxx</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_9">
+                                    <input class="visily" type="checkbox" name="group-2" id="group-2">
+                                    <label for="group-2" class="lv1-title">山西地址博物馆（2）</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <!-- <input type="checkbox"> -->
+                                                <!-- <img src="./img/danxuan0.png" alt=""> -->
+                                                <i class="onchecked"></i>
+                                                <span class="lv2-text">摄像头点位-A</span>
+                                            </a>
+                                        </li>
+                                        <li class="children children-lv2" id="subject_11">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">摄像头点位-B</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_13">
+                                    <input class="visily" type="checkbox" name="group-3" id="group-3">
+                                    <label for="group-3" class="lv1-title">晋祠</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_115">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <i class="onchecked"></i>
+                                                <span class="lv2-text">中国行政区划</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_16">
+                                    <input class="visily" type="checkbox" name="group-4" id="group-4">
+                                    <label for="group-4" class="lv1-title">圣母殿</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">综合医院</span>
+                                            </a>
+                                        </li>
+                                        <li class="children children-lv2" id="subject_12">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">诊所</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_19">
+                                    <input class="visily" type="checkbox" name="group-5" id="group-5">
+                                    <label for="group-5" class="lv1-title">太原白云寺（3）</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <input type="checkbox">
+                                                <span class="lv2-text">综合医院</span>
+                                            </a>
+                                        </li>
+                                        <li class="children children-lv2" id="subject_12">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <input type="checkbox">
+                                                <span class="lv2-text">诊所</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_113">
+                                    <input class="visily" type="checkbox" name="group-6" id="group-6">
+                                    <label for="group-6" class="lv1-title">太原龙华寺</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">综合医院</span>
+                                            </a>
+                                        </li>
+                                        <li class="children children-lv2" id="subject_12">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">诊所</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_113">
+                                    <input class="visily" type="checkbox" name="group-7" id="group-7">
+                                    <label for="group-7" class="lv1-title">天龙山石窟</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">综合医院</span>
+                                            </a>
+                                        </li>
+                                        <li class="children children-lv2" id="subject_12">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">诊所</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_113">
+                                    <input class="visily" type="checkbox" name="group-8" id="group-8">
+                                    <label for="group-8" class="lv1-title">古交千佛寺</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">综合医院</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_113">
+                                    <input class="visily" type="checkbox" name="group-9" id="group-9">
+                                    <label for="group-9" class="lv1-title">晋阳古城遗址</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">综合医院</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="children children-lv1" id="subject_113">
+                                    <input class="visily" type="checkbox" name="group-10" id="group-10">
+                                    <label for="group-10" class="lv1-title">赵树理旧居</label>
+                                    <ul class="ul-leaf">
+                                        <li class="children children-lv2" id="subject_10">
+                                            <a class="lv2-title" href="javascript:void(0);">
+                                                <div class="ischecked"></div>
+                                                <span class="lv2-text">综合医院</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右侧视频 -->
+                <div style="width: 640px;height: 360px;border: 1px solid #1e2a5b;margin-left: 50px;">
+                </div>
+            </div>
+            <!-- 按钮 -->
+            <div class="but">保存AI模型设置</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    // 点击切换tab
+    var arrLi = document.getElementById("tabul").children
+    for (var i = 0; i < arrLi.length; i++) {
+        cut(arrLi[i])
+    }
+
+    function cut(obj) {
+        obj.onclick = function () {
+            for (var j = 0; j < arrLi.length; j++) {
+                if (obj == arrLi[j]) {
+                    obj.className = "selected";
+                } else {
+                    arrLi[j].className = ''
+                }
+            }
+        }
+    }
+    // 点击列表事件
+    act()
+
+    function act(obe) {
+        var ulLists = $("#classefyLists")
+        if (ulLists.length > 0) {
+            ulLists.each(function () {
+                var accordion = $(this);
+                accordion.on('change', 'input[type="checkbox"]', function () {
+                    var checkbox = $(this);
+                    // 点击列表展开对应ul的列表
+                    (checkbox.prop('checked')) ? checkbox.siblings('ul').attr('style', 'display:none;')
+                        .slideDown(300): checkbox.siblings('ul').attr('style', 'display:block;')
+                        .slideUp(300);
+                    // 点击旋转箭头方向
+                    (checkbox.prop('checked')) ? checkbox.siblings('label').addClass('class',
+                        'lv1-title02'): checkbox.siblings('label').removeClass('class', 'lv1-title');
+                    // 点击列表切换背景文字颜色
+                    (checkbox.prop('checked')) ? checkbox.siblings('label').attr('class',
+                        'lv1-title02'): checkbox.siblings('label').attr('class', 'lv1-title');
+                });
+            });
+        }
+    }
+    // 判断二级列表单选框还是复选框 选中与不选中的样式切换
+    var list = document.getElementsByClassName('lv2-title'); // 获取class为ant-btn的元素
+    for (var i in list) {
+        list[i].onclick = function () {
+            if (this.getElementsByTagName('div').length == 1) {
+                var changeclass = this.getElementsByTagName('div')[0].className
+                console.log(this.getElementsByTagName('div'))
+                if (changeclass == 'ischeckedok') {
+                    this.getElementsByTagName('div')[0].className = 'ischecked'
+                } else {
+                    this.getElementsByTagName('div')[0].className = 'ischeckedok'
+                }
+            } else {
+                var fuxuan = this.getElementsByTagName('i')[0].className
+                console.log(this.getElementsByTagName('i'))
+                if (fuxuan == 'onchecked') {
+                    this.getElementsByTagName('i')[0].className = 'onchecked0'
+                } else {
+                    this.getElementsByTagName('i')[0].className = 'onchecked'
+                }
+            }
+        };
+    }
+    // 切换是否选中二级列表文字的颜色
+    $(".lv2-title").each(function () {
+        var twice = false
+        $(this).click(function () {
+            var val = $(this).html();
+            if (twice) {
+                $(this).css('color', '#fff');
+                twice = false
+            } else {
+                $(this).css('color', '#1adac8');
+                twice = true
+            }
+        });
+    });
+</script>
+
+</html>
