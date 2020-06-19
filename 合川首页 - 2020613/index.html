@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>合川首页</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: #eee;
+            position: absolute;
+            /* font-family: serif, Microsoft YaHei, monospace; */
+        }
+
+        .divbox {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .titlebox {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 35%;
+            height: 100%;
+            color: #fff;
+            background: url('./img/gibbg.png') no-repeat;
+            background-size: 100% 100%;
+            padding: 50px 30px 0;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 27px;
+            letter-spacing: 2px;
+        }
+
+        .english_text {
+            font-size: 12px;
+            letter-spacing: 0;
+            line-height: 15px;
+            font-family: none;
+        }
+
+        .listbox {
+            width: 65%;
+            color: #000;
+            background: #f5fafd;
+            padding: 20px 20px 20px 30px;
+        }
+
+        #yqglList,
+        #zwfwList {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .each_yqgl {
+            background: #fff;
+            color: #666;
+            padding: 8px 15px;
+            margin-bottom: 10px;
+            margin-right: 2%;
+            width: 14.5%;
+            text-align: center;
+        }
+
+        .each_yqgl~.each_yqgl {
+            /* margin-left: 10px; */
+        }
+
+        .ytgl_tit {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 50px;
+        }
+
+        .zwfw_img {
+            width: 53%;
+            margin: 12px 0;
+        }
+
+        .top_Name {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+        }
+
+        .flex_between {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .yqhjzl_eachzs {
+            display: flex;
+            width: 100%;
+        }
+
+        .yqhjzl_eachzs>div {
+            width: 14.2%;
+            text-align: center;
+        }
+
+        .yqhjzl_eachzs>div>div:nth-child(1) {
+            font-size: 20px;
+        }
+
+        .yqhjzl_eachzs>div>div:nth-child(2) {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .yqhjzl_eachzs>div~div::before {
+            content: " ";
+            display: block;
+            width: 1px;
+            top: 30px;
+            height: 26px;
+            position: absolute;
+            background: #ddd;
+        }
+
+        .red {
+            color: #ff2624;
+        }
+
+        .newon::after {
+            content: " ";
+            display: block;
+            position: relative;
+            left: 16px;
+            height: 7px;
+            overflow: hidden;
+            text-align: center;
+            top: 0px;
+            width: 23px;
+            border-top: 2px solid #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="divbox">
+        <div class="titlebox">
+            <div class="title">
+                <div>合川区园区综合<br />管理平台</div>
+                <div class="english_text">Hechuan District Park Enterprise Services <br />Platform</div>
+            </div>
+            <div>
+                <div>
+                    <ul class="new_telst">
+                        <li class="newon">园区要闻</li>
+                        <li class="">最新事件</li>
+                        <!-- <p style="left: 16px;"></p> -->
+                    </ul>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="new-wrap">
+                    <div class="new_lst show" style="display: block;">
+                        <ul class="new_lst_cn">
+                            <li class="new_cnlf">
+                                <p class="newlf_img" style="display: flex;">
+                                    <img src="./img/2.png" width="60" height="45">
+                                    <img src="./img/2.png" width="60" height="45">
+                                    <img src="./img/2.png" width="60" height="45">
+                                    <img src="./img/2.png" width="60" height="45">
+                                    <img src="./img/2.png" width="60" height="45">
+                                </p>
+                            </li>
+                            <li class="new_cnrf">
+                                <div class="newrf_lst">
+                                    <dl>
+                                        <dd style="display: flex;justify-content: space-between;">
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd style="display: flex;justify-content: space-between;">
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd style="display: flex;justify-content: space-between;">
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd style="display: flex;justify-content: space-between;">
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <div class="clear">
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="new_lst" style="display: none;">
+                        <ul class="new_lst_cn">
+                            <li class="new_cnrf">
+                                <div class="newrf_lst">
+                                    <dl>
+                                        <dd style="display: flex;justify-content: space-between;">
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd>
+                                            <p class="newrf_tx">
+                                                <a href="#">加快融合发展 汇聚城市人气 展现更大作为</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd>
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd>
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd>
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                        <dd>
+                                            <p class="newrf_tx">
+                                                <a href="#">[事件类型] 习见平深入林场农村考察调研</a>
+                                            </p>
+                                            <p style="line-height: 29px;">2020/06/08</p>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <div class="clear">
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="listbox">
+            <div class="top_Name">
+                <div style="display: flex;height: 40px;
+                line-height: 40px;
+                background: #e1f0ff;
+                border-radius: 20px;
+                width: fit-content;">
+                    <div
+                        style="width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    border: 3px solid #fff;background: url('./img/touxiang.png') no-repeat;background-size: 100% 100%;">
+                    </div>
+                    <div style="padding-left: 15px;">name</div>
+                    <img style="width: 20px;
+                    height: 10px;
+                    margin: auto 20px;" src="./img/arrow.png" alt="">
+                </div>
+            </div>
+            <div class="ytgl_tit">园区管理</div>
+            <div id="yqglList"></div>
+            <div class="ytgl_tit">政务服务</div>
+            <div id="zwfwList"></div>
+            <div class="ytgl_tit">园区环境质量</div>
+            <div style="width: 100%; background: #fff;padding: 20px 15px;">
+                <div style="font-size: 28px; font-weight: bold;">28℃<span
+                        style="color: #666; font-size: 12px; margin-left: 20px;">湿度70% /
+                        东风 2级</span></div>
+                <div class="flex_between" style="width: 100%;">
+                    <div style="width: 63%;padding: 0 13px;">
+                        <div class="flex_between" style="color: #999; line-height: 37px;">
+                            <div>2020-06-10</div>
+                            <div>单位g/m3</div>
+                        </div>
+                        <div class="yqhjzl_eachzs" style="background: #f5faff;padding: 12px 0;position: relative;">
+                            <div>
+                                <div>101</div>
+                                <div>AQI</div>
+                            </div>
+                            <div>
+                                <div>94</div>
+                                <div>PM2.5</div>
+                            </div>
+                            <div>
+                                <div class="red">101</div>
+                                <div>PM10</div>
+                            </div>
+                            <div>
+                                <div>20</div>
+                                <div>SO2</div>
+                            </div>
+                            <div>
+                                <div>15</div>
+                                <div>NO2</div>
+                            </div>
+                            <div>
+                                <div class="red">0.2</div>
+                                <div>CO</div>
+                            </div>
+                            <div>
+                                <div>2</div>
+                                <div>03</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 35%;display: flex; flex-direction: column;justify-content: space-between;">
+                        <div style="height: 50%;display: flex;flex-direction: column;justify-content: space-around;">
+                            <div class="flex_between">
+                                <div style="color: #999;">本年度AQI优良天数</div>
+                                <div>100天</div>
+                            </div>
+                            <div
+                                style="width: 288px;height: 8px;border-radius: 4px;background: #e8eaf2;position: relative;">
+                                <div
+                                    style="width: 30%;background: #03c9d1;height: 8px;border-radius: 4px;position: absolute;left: 0;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="height: 50%;display: flex;flex-direction: column;justify-content: space-around;">
+                            <div class="flex_between">
+                                <div style="color: #999;">本月AQI优良天数</div>
+                                <div>23天</div>
+                            </div>
+                            <div
+                                style="width: 288px;height: 8px;border-radius: 4px;background: #e8eaf2;position: relative;">
+                                <div
+                                    style="width: 30%;background: #03c9d1;height: 8px;border-radius: 4px;position: absolute;left: 0;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.onresize = function () { //改变可视区域触发
+        location = location; //页面刷新
+    }
+    window.onload = () => {
+        document.getElementsByTagName("body")[0].style.height = document.body.scrollHeight + "px";
+        document.getElementsByTagName("body")[0].style.width = document.body.scrollWidth + "px";
+        yqgl()
+        zwfw()
+    }
+    $(document).ready(function () {
+        //设计案例切换
+        $('.new_telst li').mouseover(function () {
+            var liindex = $('.new_telst li').index(this);
+            $(this).addClass('newon').siblings().removeClass('newon');
+            $('.new-wrap div.new_lst').eq(liindex).fadeIn(150).siblings('div.new_lst').hide();
+            var liWidth = $('.new_telst li').width();
+            $('.newtel .new_telst p').stop(false, true).animate({
+                'left': liindex * liWidth + 'px'
+            }, 300);
+        });
+    });
+
+    function yqgl() {
+        var yqglListcont = ""
+        var yqgllists = ["一张图", "数据看板", "事件中心", "资产管理", "企业管理", "人员管理", "办公管理", "应急管理", "系统设置"]
+        for (var i = 0; i < yqgllists.length; i++) {
+            yqglListcont += "<div class='each_yqgl'>" + yqgllists[i] + "</div>"
+        }
+        document.getElementById("yqglList").innerHTML = yqglListcont
+    }
+
+    function zwfw() {
+        var zwfwListcont = ""
+        var yqgllists = [{
+                img: "./img/1.png",
+                test: "协同办公"
+            },
+            {
+                img: "./img/2.png",
+                test: "智慧党建"
+            },
+            {
+                img: "./img/3.png",
+                test: "招商管理"
+            },
+            {
+                img: "./img/4.png",
+                test: "项目管理"
+            },
+            {
+                img: "./img/5.png",
+                test: "财税管理"
+            },
+            {
+                img: "./img/6.png",
+                test: "信息发布"
+            }
+        ]
+        for (var i = 0; i < yqgllists.length; i++) {
+            zwfwListcont += "<div class='each_yqgl'><div><img class='zwfw_img' src='" + yqgllists[i].img + "'/></div>" +
+                yqgllists[i].test + "</div>"
+        }
+        document.getElementById("zwfwList").innerHTML = zwfwListcont
+    }
+</script>
+
+</html>

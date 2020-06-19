@@ -1,0 +1,260 @@
+/* 公共样式表css */
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #333;
+    font-size: 14px;
+    font: 14px/1.6 PingFangSC-Light, 'helvetica neue', 'hiragino sans gb', tahoma, 'microsoft yahei ui', 'microsoft yahei', simsun, sans-serif;
+}
+
+html {
+    overflow: auto;
+}
+
+ul,
+li {
+    list-style-type: none;
+    cursor: auto;
+}
+
+img {
+    vertical-align: middle;
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    outline: none;
+    color: #217af0
+}
+
+.clear {
+    clear: both
+}
+
+input {
+    border: none;
+}
+
+/* 必要布局样式css */
+.title_cn {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#new_box {
+    width: 100%;
+    padding: 50px 0px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-bottom: 0px;
+}
+
+.new_con {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.newtel {
+    height: 30px;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 10px;
+    font-family: "微软雅黑";
+    font-size: 18px;
+    color: #666
+}
+
+.new_telst {
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    top: -213px;
+    text-align: center;
+
+    top: 0;
+}
+
+.new_telst li {
+    line-height: 30px;
+    text-align: center;
+    float: left;
+    display: inline;
+    font-family: "微软雅黑";
+    cursor: pointer;
+
+    width: fit-content;
+    margin-right: 15px;
+    color: #fff;
+    opacity: 0.5;
+}
+
+.new_telst li.newon {
+    opacity: 1;
+}
+
+.new_telst p {
+    position: absolute;
+    left: 0px;
+    height: 7px;
+    overflow: hidden;
+    text-align: center;
+
+    top: 30px;
+    width: 23px;
+    border-top: 2px solid #fff;
+}
+
+.new_telst b {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-top: -3px;
+    border-style: solid dashed dashed dashed;
+    border-width: 9px;
+    border-color: #217af0 #fff #fff #fff;
+    overflow: hidden;
+    zoom: 1;
+    font-size: 0;
+}
+
+.new_lst {
+    position: relative;
+    overflow: hidden;
+    display: none;
+    padding-top: 20px;
+    height: 208px;
+}
+
+.new_lst ul {
+    position: absolute;
+    left: 0px;
+
+    width: 100%;
+}
+
+.new-wrap .show {
+    display: block;
+}
+
+li.new_cnlf {
+    width: 370px;
+    float: left;
+
+    width: 100%;
+}
+
+li.new_cnlf p {
+    width: 100%;
+}
+
+p.newlf_tel a {
+    font-size: 18px;
+    line-height: 50px;
+    text-align: center;
+    display: block;
+}
+
+p.newlf_tel a:hover {
+    color: #C33
+}
+
+p.newlf_tx {
+    font-size: 14px;
+    line-height: 26px;
+    height: 105px;
+    overflow: hidden;
+    color: #fff;
+}
+
+li.new_cnrf {
+    float: right;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.newrf_lst dd {
+    float: left;
+    width: 100%;
+    height: fit-content;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    border: none;
+    color: #fff;
+    opacity: 0.5;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+p.new_rq {
+    width: 65px;
+    height: 65px;
+    float: left;
+    text-align: center;
+    color: #FFF;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p.new_rq span {
+    display: block;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 35px;
+    padding-top: 5px;
+}
+
+p.newrf_tx {
+    float: left;
+    width: 74%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+p.newrf_tx a {
+    font-size: 14px;
+    display: block;
+    line-height: 30px;
+
+    color: #fff;
+}
+
+p.newrf_tx span {
+    display: block;
+    font-size: 12px;
+    height: 60px;
+    overflow: hidden;
+
+    color: #fff;
+}
+
+.newrf_lst dd:hover {
+    color: #fff;
+    opacity: 1;
+}
+
+.newrf_lst dd:hover p.new_rq {
+    margin-top: 9px;
+    margin-left: 9px;
+
+}
+
+.mr0 {
+    margin-right: 0px;
+}
